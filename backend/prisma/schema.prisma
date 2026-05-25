@@ -1,0 +1,37 @@
+// Gerador do cliente Prisma — modelo de dados do TaskHub configurado para MongoDB
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuário
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  role      String   @default("USER")
+
+  // Relação: usuário possui muitas tarefas
+  tasks Task[]
+}
+
+// Modelo de Tarefa
+model Task {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  title       String
+  description String?
+  done        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relação: tarefa pertence a um usuário
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
