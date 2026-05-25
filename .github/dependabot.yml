@@ -1,0 +1,14 @@
+# Arquivo de configuração do Dependabot para o TaskHub
+version: 2
+updates:
+  # 💻 Monitoramento de pacotes do Backend (Node.js/Express/Prisma)
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly" # Verifica novas versões toda semana
+
+  # 🎨 Monitoramento de pacotes do Frontend (React/Vite/Tailwind)
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly" # Verifica novas versões toda semana
